@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList</title>
+    <link rel="stylesheet" href="list.css"> 
+</head>
+<body>
+    <p id="todo">ToDoList</p>
+    <div class="box">
+       
+        <input type="text" id="taskInput" placeholder="Enter task!">
+        <button id="addTaskBtn">add task</button>
+        <p id="success"></p>
+        <ul id="taskList"></ul>
+        
+    </div>
+    
+    <script>
+        const taskInput=document.getElementById("taskInput")
+        const addTaskBtn=document.getElementById("addTaskBtn")
+        const taskList=document.getElementById("taskList")
+        const success=document.getElementById("success")
+
+        addTaskBtn.addEventListener("click",function(){
+            const user_input = taskInput.value.trim();
+            if(user_input===""){
+                alert("Please Enter Task!");
+                return;
+            }
+            const newlist = document.createElement("li");
+            newlist.textContent = user_input;
+
+           
+            success.textContent="Task add successfully";
+            setTimeout(()=> document.getElementById("success").textContent=" ",3000)
+
+            const delbtn = document.createElement("button")
+            delbtn.textContent= "del"
+            delbtn.style.marginLeft = "10px";
+            delbtn.style.cursor = "pointer";
+
+
+            delbtn.addEventListener("click",function(){
+                taskList.removeChild(newlist)
+                success.textContent="Task dell successfully";
+                setTimeout(()=> document.getElementById("success").textContent=" ",3000)
+
+            });
+
+            const editbtn=document.createElement("button")
+            editbtn.textContent="edit";
+            editbtn.addEventListener("click",function(edit_task){
+                const new_task=prompt("Enter edit your task!",edit_task.textContent)
+                if(new_task===""){
+                    alert("Please enter your task!")
+                    return
+                }
+                else{
+                    newlist.textContent=new_task;
+                    newlist.appendChild(editbtn)
+                    newlist.appendChild(delbtn)
+
+                    success.textContent="Task edit successfully";
+                    setTimeout(()=> document.getElementById("success").textContent=" ",3000)
+
+
+                }
+
+            })
+
+            newlist.appendChild(delbtn);
+            newlist.appendChild(editbtn)
+            taskList.appendChild(newlist);
+
+            taskInput.value="";
+
+        });
+
+        
+
+
+    </script>
+</html>
